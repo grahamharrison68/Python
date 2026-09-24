@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Details</title>
+<style>
+body { margin: 0; height: 100vh; overflow: hidden; font-family: Arial, sans-serif; }
+#loadout { box-sizing: border-box; height: 120px; overflow: hidden; padding: 1rem; border-bottom: 2px solid #0b3d91; color: black; background: white; white-space: pre-wrap; }
+#source { display: block; width: 100%; height: calc(100vh - 120px); border: 0; }
+</style>
+</head>
+<body>
+<div id="loadout"></div>
+<iframe id="source" title="Unit reference"></iframe>
+<script>
+const parameters = new URLSearchParams(window.location.search);
+document.title = parameters.get("unit") || "Unit Details";
+document.getElementById("loadout").textContent = parameters.get("loadout") || "";
+const unitUrl = parameters.get("url") || "";
+try {
+    const parsedUrl = new URL(unitUrl);
+    if (parsedUrl.protocol === "https:" || parsedUrl.protocol === "http:") {
+        document.getElementById("source").src = parsedUrl.href;
+    }
+} catch (error) {
+    document.getElementById("source").remove();
+}
+</script>
+</body>
+</html>
